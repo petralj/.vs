@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Detalji: <b class="text-primary">@ViewBag.rezultat.KvizRezultat.NazivKviza</b></h2>
+<h2>Korisnik: <b class="text-primary">@ViewBag.rezultat.User.Ime  @ViewBag.rezultat.User.Prezime</b></h2>
+<hr />
+
+@if (ViewBag.rezultat != null)
+{
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th class="text-center">Pitanje #</th>
+                <th>Pitanje</th>
+                <th>Korisnikov odgovor</th>
+                <th>Točan odgovor</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @{ int i = 1; }
+            @foreach(var r in ViewBag.rezultat.Odgovori)
+            {
+                <tr class="@if (Convert.ToBoolean(r.Odgovor.IsTocanOdgovor)) { @Html.Raw("table-row-success"); } else { @Html.Raw("table-row-danger");  } ">
+                    <td class="text-center">@i.</td>
+                    <td>@r.Pitanje.Value</td>
+                    <td>@r.Odgovor.Value</td>
+                    <td>@r.TocanOdgovor.Value</td>
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3 style="color:blue;">Nema detalja!</h3>
+}
+

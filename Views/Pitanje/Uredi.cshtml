@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<h1>Uredi pitanje</h1>
+<hr />
+
+
+@if (ViewBag.pitanje != null)
+{
+    <form role="form" method="POST" action="@Url.Action("HandleUredi", "Pitanje", new { ID=ViewBag.pitanjeID})">
+                <div class="form-group">
+                    <label for="Pitanje">Pitanje: </label>
+                    <input class="form-control" style="width: 100%;" type="text" name="Pitanje" id="Pitanje" value="@ViewBag.pitanje.Value" placeholder="Unesite pitanje..." />
+                    @if (ViewBag.pitanjeError == 1)
+                    { <p style="color:red;">Unesite naslov pitanja!</p> }
+                </div>
+
+
+                <div class="form-group">
+                    <label for="PitanjeRazina">Razina: </label>
+                    <select class="form-control" name="PitanjeRazina" id="PitanjeRazina">
+                        <option value="1" @if ("1" == ViewBag.pitanje.Razina.ToString()) { @Html.Raw("selected")  }>1</option>
+                        <option value="2" @if ("2" == ViewBag.pitanje.Razina.ToString()) { @Html.Raw("selected")  }>2</option>
+                        <option value="3" @if ("3" == ViewBag.pitanje.Razina.ToString()) { @Html.Raw("selected")  }>3</option>
+                    </select>
+                </div>
+
+                @{
+                    int i = 1;
+                }
+                @foreach (var odg in ViewBag.odgovori)
+                {
+                    <div class="form-group">
+                        <label for="odg1">Ponuđeni odgovor @i: </label>
+                        <input value="@odg.Value" class="form-control" type="text" name="@Html.Raw("odg" + i)" id="@Html.Raw("odg" + i)" placeholder="Unesite ponuđeni odgovor..." />
+                        <input type="radio" name="tocanOdg" value="@Html.Raw(i)" @if (odg.IsTocanOdgovor == Convert.ToByte(true)) { @Html.Raw("checked")  ; } />Točan dogovor
+                        @if (ViewBag.odg1Error == 1)
+                        { <p style="color:red;">Unesite ponuđeni odgovor!</p> }
+                    </div>
+                    i++;
+                }
+                <button class="btn btn-success btn-lg" type="submit"><i class="glyphicon glyphicon-floppy-save"></i>&nbsp;&nbsp;Spremi</button>
+                <button type="button" class="btn btn-default btn-lg" onclick="location.href='@Url.Action("Index", "Pitanje", new { }, null)'"><i class="glyphicon glyphicon-arrow-left"></i>&nbsp;&nbsp;Nazad</button>
+
+    </form>
+}
+else
+{
+    <h3 class="text-danger">Pitanje(ID=@ViewBag.pitanjeID) nije pronađeno u bazi podataka!</h3>
+}

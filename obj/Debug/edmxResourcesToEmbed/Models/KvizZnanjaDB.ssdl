@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KvizZnanjaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Kviz">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NazivKviza" Type="varchar" MaxLength="255" />
+    <Property Name="Razina" Type="int" />
+  </EntityType>
+  <EntityType Name="KvizPitanje">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="KvizID" Type="bigint" />
+    <Property Name="PitanjeID" Type="bigint" />
+  </EntityType>
+  <EntityType Name="KvizRezultat">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NazivKviza" Type="varchar" MaxLength="255" />
+    <Property Name="UserID" Type="bigint" />
+    <Property Name="KvizID" Type="bigint" />
+    <Property Name="DatumIVrijeme" Type="datetime" />
+    <Property Name="Score" Type="varchar" MaxLength="255" />
+    <Property Name="VrijemeTrajanja" Type="int" />
+    <Property Name="Tocnih" Type="int" />
+    <Property Name="Netocnih" Type="int" />
+    <Property Name="Postotak" Type="float" />
+  </EntityType>
+  <EntityType Name="KvizRezultatOdgovor">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PitanjeID" Type="bigint" />
+    <Property Name="UserOdgovorID" Type="bigint" />
+    <Property Name="TocanOdgovorID" Type="bigint" />
+    <Property Name="KvizRezultatID" Type="bigint" />
+    <Property Name="IsTocan" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="Odgovor">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Value" Type="varchar" MaxLength="255" />
+    <Property Name="IsTocanOdgovor" Type="tinyint" />
+  </EntityType>
+  <EntityType Name="OdgovorPitanje">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PitanjeID" Type="bigint" />
+    <Property Name="OdgovorID" Type="bigint" />
+  </EntityType>
+  <EntityType Name="Pitanje">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Value" Type="varchar" MaxLength="255" />
+    <Property Name="Razina" Type="int" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Ime" Type="varchar" MaxLength="255" />
+    <Property Name="Prezime" Type="varchar" MaxLength="255" />
+    <Property Name="Username" Type="varchar" MaxLength="255" />
+    <Property Name="Password" Type="varchar" MaxLength="255" />
+    <Property Name="Email" Type="varchar" MaxLength="255" />
+    <Property Name="Privilegije" Type="varchar" MaxLength="255" />
+  </EntityType>
+  <EntityContainer Name="KvizZnanjaModelStoreContainer">
+    <EntitySet Name="Kviz" EntityType="Self.Kviz" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KvizPitanje" EntityType="Self.KvizPitanje" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KvizRezultat" EntityType="Self.KvizRezultat" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="KvizRezultatOdgovor" EntityType="Self.KvizRezultatOdgovor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Odgovor" EntityType="Self.Odgovor" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="OdgovorPitanje" EntityType="Self.OdgovorPitanje" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pitanje" EntityType="Self.Pitanje" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
+</Schema>

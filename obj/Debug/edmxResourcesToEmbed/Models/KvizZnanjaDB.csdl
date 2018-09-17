@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="KvizZnanjaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="KvizZnanjaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Kvizs" EntityType="KvizZnanjaModel.Kviz" />
+    <EntitySet Name="KvizPitanjes" EntityType="KvizZnanjaModel.KvizPitanje" />
+    <EntitySet Name="Odgovors" EntityType="KvizZnanjaModel.Odgovor" />
+    <EntitySet Name="OdgovorPitanjes" EntityType="KvizZnanjaModel.OdgovorPitanje" />
+    <EntitySet Name="Users" EntityType="KvizZnanjaModel.User" />
+    <EntitySet Name="Pitanjes" EntityType="KvizZnanjaModel.Pitanje" />
+    <EntitySet Name="KvizRezultatOdgovor" EntityType="KvizZnanjaModel.KvizRezultatOdgovor" />
+    <EntitySet Name="KvizRezultat" EntityType="KvizZnanjaModel.KvizRezultat" />
+  </EntityContainer>
+  <EntityType Name="Kviz">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NazivKviza" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Razina" Type="Int32" />
+  </EntityType>
+  <EntityType Name="KvizPitanje">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="KvizID" Type="Int64" />
+    <Property Name="PitanjeID" Type="Int64" />
+  </EntityType>
+  <EntityType Name="Odgovor">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="IsTocanOdgovor" Type="Byte" />
+  </EntityType>
+  <EntityType Name="OdgovorPitanje">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PitanjeID" Type="Int64" />
+    <Property Name="OdgovorID" Type="Int64" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Ime" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Prezime" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Username" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Privilegije" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Pitanje">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Razina" Type="Int32" />
+  </EntityType>
+  <EntityType Name="KvizRezultatOdgovor">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PitanjeID" Type="Int64" />
+    <Property Name="UserOdgovorID" Type="Int64" />
+    <Property Name="TocanOdgovorID" Type="Int64" />
+    <Property Name="KvizRezultatID" Type="Int64" />
+    <Property Name="IsTocan" Type="Byte" />
+  </EntityType>
+  <EntityType Name="KvizRezultat">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NazivKviza" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="UserID" Type="Int64" />
+    <Property Name="KvizID" Type="Int64" />
+    <Property Name="DatumIVrijeme" Type="DateTime" Precision="3" />
+    <Property Name="Score" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="VrijemeTrajanja" Type="Int32" />
+    <Property Name="Tocnih" Type="Int32" />
+    <Property Name="Netocnih" Type="Int32" />
+    <Property Name="Postotak" Type="Double" />
+  </EntityType>
+</Schema>

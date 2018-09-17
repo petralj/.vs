@@ -1,0 +1,73 @@
+﻿@model IEnumerable<KvizZnanja.Models.User>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Pregled korisnika</h2>
+<hr />
+
+<table class="table table-bordered table-striped">
+    <tr>
+        <th class="text-center">#</th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prezime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Privilegije)
+        </th>
+        <th></th>
+        <th></th>
+        <th></th>
+    </tr>
+    @{ int i = 1; }
+@foreach (var item in Model) {
+    <tr>
+        <td class="text-center">@i.</td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prezime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Privilegije)
+        </td>
+        <td class="text-center">
+            <button type="button" class="btn btn-success" onclick="@("window.location.href='" + @Url.Action("Edit", "Users", new { id = item.ID }) + "'");"><i class="glyphicon glyphicon-edit"></i>&nbsp;&nbsp;Uredi</button>
+        </td>
+        <td class="text-center">
+            <button type="button" class="btn btn-info" onclick="@("window.location.href='" + @Url.Action("Details", "Users", new { id = item.ID }) + "'");"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;&nbsp;Detalji</button>
+        </td>
+        <td class="text-center">
+            <button type="button" class="btn btn-danger" onclick="@("window.location.href='" + @Url.Action("Delete", "Users", new { id = item.ID }) + "'");"><i class="glyphicon glyphicon-trash"></i>&nbsp;&nbsp;Briši</button>
+        </td>
+    </tr>
+    i++;
+}
+
+</table>
+
+
+<button type="button" class="btn btn-primary" onclick="@("window.location.href='" + @Url.Action("Create", "Users") + "'");"><i class="glyphicon glyphicon-plus"></i>&nbsp;&nbsp;Dodaj novog korisnika</button>

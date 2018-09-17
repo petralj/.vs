@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="KvizZnanjaModelStoreContainer" CdmEntityContainer="KvizZnanjaEntities">
+    <EntitySetMapping Name="Kvizs">
+      <EntityTypeMapping TypeName="KvizZnanjaModel.Kviz">
+        <MappingFragment StoreEntitySet="Kviz">
+          <ScalarProperty Name="Razina" ColumnName="Razina" />
+          <ScalarProperty Name="NazivKviza" ColumnName="NazivKviza" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KvizPitanjes">
+      <EntityTypeMapping TypeName="KvizZnanjaModel.KvizPitanje">
+        <MappingFragment StoreEntitySet="KvizPitanje">
+          <ScalarProperty Name="PitanjeID" ColumnName="PitanjeID" />
+          <ScalarProperty Name="KvizID" ColumnName="KvizID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Odgovors">
+      <EntityTypeMapping TypeName="KvizZnanjaModel.Odgovor">
+        <MappingFragment StoreEntitySet="Odgovor">
+          <ScalarProperty Name="IsTocanOdgovor" ColumnName="IsTocanOdgovor" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OdgovorPitanjes">
+      <EntityTypeMapping TypeName="KvizZnanjaModel.OdgovorPitanje">
+        <MappingFragment StoreEntitySet="OdgovorPitanje">
+          <ScalarProperty Name="OdgovorID" ColumnName="OdgovorID" />
+          <ScalarProperty Name="PitanjeID" ColumnName="PitanjeID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="KvizZnanjaModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="Privilegije" ColumnName="Privilegije" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+          <ScalarProperty Name="Ime" ColumnName="Ime" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pitanjes">
+      <EntityTypeMapping TypeName="KvizZnanjaModel.Pitanje">
+        <MappingFragment StoreEntitySet="Pitanje">
+          <ScalarProperty Name="Razina" ColumnName="Razina" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KvizRezultatOdgovor">
+      <EntityTypeMapping TypeName="KvizZnanjaModel.KvizRezultatOdgovor">
+        <MappingFragment StoreEntitySet="KvizRezultatOdgovor">
+          <ScalarProperty Name="IsTocan" ColumnName="IsTocan" />
+          <ScalarProperty Name="KvizRezultatID" ColumnName="KvizRezultatID" />
+          <ScalarProperty Name="TocanOdgovorID" ColumnName="TocanOdgovorID" />
+          <ScalarProperty Name="UserOdgovorID" ColumnName="UserOdgovorID" />
+          <ScalarProperty Name="PitanjeID" ColumnName="PitanjeID" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="KvizRezultat">
+      <EntityTypeMapping TypeName="KvizZnanjaModel.KvizRezultat">
+        <MappingFragment StoreEntitySet="KvizRezultat">
+          <ScalarProperty Name="Postotak" ColumnName="Postotak" />
+          <ScalarProperty Name="Netocnih" ColumnName="Netocnih" />
+          <ScalarProperty Name="Tocnih" ColumnName="Tocnih" />
+          <ScalarProperty Name="VrijemeTrajanja" ColumnName="VrijemeTrajanja" />
+          <ScalarProperty Name="Score" ColumnName="Score" />
+          <ScalarProperty Name="DatumIVrijeme" ColumnName="DatumIVrijeme" />
+          <ScalarProperty Name="KvizID" ColumnName="KvizID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="NazivKviza" ColumnName="NazivKviza" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

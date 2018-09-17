@@ -1,0 +1,62 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h2>Pregled rezultata</h2>
+<hr />
+
+
+
+@if (ViewBag.rezultati.Count > 0)
+{
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
+            <tr>
+                <th class="text-center">#</th>
+                <th>Naziv kviza</th>
+                <th>Ime i prezime korisnika</th>
+                <th>Datum i vrijeme</th>
+                <th>Točnih</th>
+                <th>Netočnih</th>
+                <th>Postotak</th>
+                <th>Vrijeme trajanja</th>
+                <th></th>
+                @if (KvizZnanja.Models.Authentication.IsAdmin())
+                {
+                    <th></th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @{ int i = 1;}
+            @foreach (var r in ViewBag.rezultati)
+            {
+                <tr>
+                    <td class="text-center" style="width:5%">@i.</td>
+                    <td>@r.KvizRezultat.NazivKviza</td>
+                    <td>@r.User.Ime  @r.User.Prezime</td>
+                    <td>@r.KvizRezultat.DatumIVrijeme.ToString("dd-MM-yyyy HH:mm:ss")</td>
+                    <td>@r.KvizRezultat.Tocnih</td>
+                    <td>@r.KvizRezultat.Netocnih</td>
+                    <td>@r.KvizRezultat.Postotak %</td>
+                    <td>@r.KvizRezultat.VrijemeTrajanja s</td>
+                    <td class="text-center" style="width:13%">
+                        <button type="button" class="btn btn-info" onclick="@("window.location.href='" + @Url.Action("Details", "Rezultati", new { ID = r.KvizRezultat.ID }) + "'");"><i class="glyphicon glyphicon-info-sign"></i>&nbsp;&nbsp;Detalji</button>
+                    </td>
+                    @if (KvizZnanja.Models.Authentication.IsAdmin())
+                    {
+                        <td class="text-center" style="width:13%">
+                            <button type="button" class="btn btn-danger" onclick="@("window.location.href='" + @Url.Action("Delete", "Rezultati", new { ID = r.KvizRezultat.ID }) + "'");"><i class="glyphicon glyphicon-trash"></i>&nbsp;&nbsp;Briši</button>
+                        </td>
+                    }
+                </tr>
+                i++;
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3 style="color:blue;">Nema unesenih rezultata u bazi!</h3>
+}

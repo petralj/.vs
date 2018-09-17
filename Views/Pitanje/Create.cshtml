@@ -1,0 +1,59 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Kreiraj pitanje</h2>
+<hr />
+
+<form method="POST" action="@Url.Action("HandleCreate", "Pitanje", new { })">
+    <div class="form-group">
+        <label for="Pitanje">Pitanje: </label>
+        <input class="form-control" type="text" name="Pitanje" id="Pitanje" placeholder="Unesite pitanje..." />
+        @if (ViewBag.pitanjeError == 1) { <p style="color:red;">Unesite naslov pitanja!</p> }
+    </div>
+
+    <div class="form-group">
+        <label for="PitanjeRazina">Razina: </label>
+        <select class="form-control" name="PitanjeRazina" id="PitanjeRazina">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+    </div>
+
+
+    <div class="form-group">
+        <label for="odg1">Ponuđeni odgovor 1: </label>
+        <input class="form-control" type="text" name="odg1" id="odg1" placeholder="Unesite ponuđeni odgovor..." />
+        <input type="radio" name="tocanOdg" value="1" id="odg1C" />Točan dogovor
+        @if (ViewBag.odg1Error == 1) { <p style="color:red;">Unesite ponuđeni odgovor!</p> }
+    </div>
+
+    <div class="form-group">
+        <label for="odg2">Ponuđeni odgovor 2: </label>
+        <input class="form-control" type="text" name="odg2" id="odg2" placeholder="Unesite ponuđeni odgovor..." />
+        <input type="radio" name="tocanOdg" value="2" id="odg2C" />Točan dogovor
+        @if (ViewBag.odg2Error == 1)
+        { <p style="color:red;">Unesite ponuđeni odgovor!</p> }
+    </div>
+
+    <div class="form-group">
+        <label for="odg1">Ponuđeni odgovor 3: </label>
+        <input class="form-control" type="text" name="odg3" id="odg3" placeholder="Unesite ponuđeni odgovor..." />
+        <input type="radio" name="tocanOdg" value="3" id="odg3C" />Točan dogovor
+        @if (ViewBag.odg3Error == 1)
+        { <p style="color:red;">Unesite ponuđeni odgovor!</p> }
+    </div>
+
+    <div class="form-group">
+        <label for="odg4">Ponuđeni odgovor 4: </label>
+        <input class="form-control" type="text" name="odg4" id="odg4" placeholder="Unesite ponuđeni odgovor..." />
+        <input type="radio" name="tocanOdg" value="4" id="odg4C" />Točan dogovor
+        @if (ViewBag.odg4Error == 1)
+        { <p style="color:red;">Unesite ponuđeni odgovor!</p> }
+    </div>
+
+    <button class="btn btn-success btn-lg" type="submit"><i class="glyphicon glyphicon-floppy-save"></i>&nbsp;&nbsp;Spremi</button>
+    <button type="button" class="btn btn-default btn-lg" onclick="location.href='@Url.Action("Index", "Pitanje", new { }, null)'"><i class="glyphicon glyphicon-arrow-left"></i>&nbsp;&nbsp;Nazad</button>
+</form>

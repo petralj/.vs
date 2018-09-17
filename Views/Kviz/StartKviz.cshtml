@@ -1,0 +1,423 @@
+﻿
+@{
+    ViewBag.Title = "StartKviz";
+}
+
+<div class="row">
+    <div class="col-xs-6">
+        <h2 class="text-left" style="padding-top: 0px;padding-bottom: 0px;">Naziv kviza: &nbsp;<b class="text-primary" style="font-style: italic;">@ViewBag.kvizData.Kviz.NazivKviza</b></h2>
+    </div>
+
+    <div class="col-xs-6">
+        <h2 class="text-right" style="padding-top: 0px;padding-bottom: 0px;font-weight: bolder;">SCORE: <b  id="score" style="font-weight: bolder;color: #eed368;"></b></h2>
+    </div>
+</div>
+
+
+<div class="row">
+        <div class="col-xs-5">
+            <h2 class="text-left" style="padding-top: 0px;padding-bottom: 0px;">Vrijeme: <label id="hours" class="text-success">00h</label>&nbsp;<label id="minutes" class="text-success">00m</label>&nbsp;<label class="text-success" id="seconds">00s</label></h2>
+        </div>
+
+
+    <div class="col-xs-2">
+        <h2 class="text-center">Pitanje:&nbsp;<b id="brojPitanjaFooter" style="color: red;"></b>&nbsp;<b class="text-primary">/</b><b class="text-primary" id="ukupnoPitanja"></b></h2>
+    </div>
+
+    <div class="col-xs-5">
+        <h2 class="text-right" style="padding-top: 0px;padding-bottom: 0px;font-weight: bolder;">RAZINA: <b style="color: darkorange;font-weight: bolder;">@ViewBag.kvizData.Kviz.Razina</b></h2>
+    </div>
+</div>
+
+
+<div id="scoreScreen" hidden>
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="panel panel-primary text-center">
+                <div class="panel-heading"><h1 class="text-center" style="margin-top: 0px;margin-bottom: 0px;"><b>VAŠI REZULTATI:</b></h1></div>
+                <div class="panel-body">
+                    <h1 class="text-center" style="margin-top: 0px"><text style="color: #eed368;">Score:&nbsp;</text><b style="color: #eed368;" id="totalScore"></b></h1>
+                    <h2 class="text-center text-success">Točnih: <b id="tocnih">25</b>&nbsp;&nbsp;<i class="fa fa-check"></i></h2>
+                    <h2 class="text-center text-danger">Netočnih: <b id="netocnih">25</b>&nbsp;<i class="fa fa-close"></i></h2>
+                    <h2 class="text-center text-info">Postotak: <b id="postotak">67</b>&nbsp;<i class="fa fa-percent"></i></h2>
+                    <h2 class="text-center" style="color: grey;">Vrijeme: <b id="gameTime">1m 07s&nbsp;</b></h2>
+
+                    <div class="row text-center" style="margin-top: 20px">
+                        <div class="col-xs-12">
+                            <button type="button" id="newGameBtn" class="btn btn-success btn-lg"><b>NOVA IGRA</b>&nbsp;&nbsp;<i class="fa fa-undo"></i></button>
+                            <button type="button" id="scoreInfoBtn" class="btn btn-info btn-lg"><b>DETALJI</b>&nbsp;&nbsp;<i class="fa fa-info-circle"></i></button>
+                            <button type="button" id="highscoresBtn" class="btn btn-warning btn-lg"><b>HIGHSCORES</b>&nbsp;&nbsp;<i class="fa fa-trophy"></i></button>
+                            <button type="button" id="endGameBtn" class="btn btn-danger btn-lg"><b>KRAJ IGRE</b>&nbsp;&nbsp;<i class="fa fa-power-off"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <hr />
+</div>
+
+
+
+
+
+<div id="kvizScreen">
+<hr>
+
+
+<div class="container-fluid bg-dark" style="padding-top: 50px;padding-bottom: 50px;">
+    <div class="row">
+        <div class="col-xs-12">
+            <h1 class="text-center"><b id="naslovPitanja"><!--Koji je glavni grad Bosne i Hercegovine ?--></b></h1>
+        </div>
+    </div>
+</div>
+<hr />
+
+
+<div class="row" style="margin-right: 25px;">
+    <div class="col-xs-6 text-right">
+        <button type="button" class="btn btn-primary btn-lg col-lg-12 btn-odgovor" id="btn1" value="">
+        </button>
+    </div>
+
+    <div class="col-xs-6 text-left">
+        <button type="button" class="btn btn-primary btn-lg col-lg-12 btn-odgovor" id="btn2" value="">
+        </button>
+    </div>
+</div>
+
+<div class="row" style="margin-right: 25px;">
+    <div class="col-xs-6 text-right">
+        <button type="button" class="btn btn-primary btn-lg col-lg-12 btn-odgovor" id="btn3" value="">
+        </button>
+    </div>
+
+    <div class="col-xs-6 text-left">
+        <button type="button" class="btn btn-primary btn-lg col-lg-12 btn-odgovor" id="btn4" value="">
+        </button>
+    </div>
+</div>
+
+</div>
+
+
+<script type="text/javascript">
+
+    document.addEventListener("DOMContentLoaded", function (event) {
+
+    function formatDate(date) {
+        return pad(date.getDate()) + "-" + pad(date.getMonth() + 1) + "-" + date.getFullYear() + " " + pad(date.getHours()) + ":" + pad(date.getMonth()) + ":" + pad(date.getSeconds());
+    }
+
+    function pad(val) {
+        return ('0' + val).slice(-2);
+    }
+
+    function roundToTwo(num) {
+        return +(Math.round(num + "e+2") + "e-2");
+    }
+
+    function shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+
+        // While there remain elements to shuffle...
+        while (0 !== currentIndex) {
+
+            // Pick a remaining element...
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex -= 1;
+
+            // And swap it with the current element.
+            temporaryValue = array[currentIndex];
+            array[currentIndex] = array[randomIndex];
+            array[randomIndex] = temporaryValue;
+        }
+        return array;
+    }
+
+
+
+
+
+    function Kviz() {
+        let self = this;
+        self.initFields = function () {
+            self.kvizData = null;
+            self.turnNumber = 0;
+            self.numberOfQuestions = 0;
+            self.currentQuestion = null;
+            self.userAnswers = [];
+            self.tocnih = 0;
+            self.netocnih = 0;
+            self.postotak = 0;
+            self.vrijeme = "";
+            self.totalSeconds = 0;
+            self.score = 0;
+            self.rezultati = {
+                KvizRezultat: null,
+                Odgovori: []
+            };
+
+            self.Title = $("#naslovPitanja");
+            self.BrojPitanjaHeader = $("#brojPitanjaHeader");
+            self.BrojPitanjaFooter = $("#brojPitanjaFooter");
+            self.UkupnoPitanja = $("#ukupnoPitanja");
+            self.Btn1 = $("#btn1");
+            self.Btn2 = $("#btn2");
+            self.Btn3 = $("#btn3");
+            self.Btn4 = $("#btn4");
+
+            self.TotalScore = $("totalScore");
+            self.Tocnih = $("#tocnih");
+            self.Netocnih = $("#netocnih");
+            self.Postotak = $("#postotak");
+            self.Vrijeme = $("#gameTime");
+            self.NewGameBtn = $("#newGameBtn");
+            self.ScoreInfoBtn = $("#scoreInfoBtn");
+            self.HighScoresInfoBtn = $("#highscoresInfoBtn");
+            self.EndGameBtn = $("#endGameBtn");
+            self.KvizScreen = $("#kvizScreen");
+            self.ScoreScreen = $("#scoreScreen");
+            self.Score = $("#score");
+            self.CountUpInterval = null;
+        }
+
+
+
+        self.init = function init(kvizData) {
+            self.initFields();
+            self.kvizData = kvizData;
+            if (self.kvizData.Data.length > 0) {
+                self.kvizData.Data = shuffle(self.kvizData.Data);
+                self.initCountUpTImer();
+                self.bindAllButtonEvents();
+                self.numberOfQuestions = self.kvizData.Data.length;
+                self.currentQuestion = self.kvizData.Data[self.turnNumber].Pitanje;
+                self.currentQuestion["Odgovori"] = self.kvizData.Data[self.turnNumber].Odgovori;
+                self.updateUI();
+            }
+        }
+
+        self.takeTurn = function takeTurn() {
+            self.turnNumber++;
+            if ((self.turnNumber + 1) > self.numberOfQuestions) {
+                clearInterval(self.CountUpInterval);
+                self.showScoreScreen();
+                return;
+            }
+            self.currentQuestion = self.kvizData.Data[self.turnNumber].Pitanje;
+            self.currentQuestion["Odgovori"] = shuffle(self.kvizData.Data[self.turnNumber].Odgovori);
+            self.updateUI();
+        }
+
+        self.initCountUpTImer = function () {
+            var minutesLabel = document.getElementById("minutes");
+            var secondsLabel = document.getElementById("seconds");
+            var hoursLabel = document.getElementById("hours");
+            self.totalSeconds = 0;
+            self.CountUpInterval = setInterval(setTime, 1000);
+
+            function setTime() {
+                ++self.totalSeconds;
+                var h = Math.floor(self.totalSeconds / 3600);
+                var m = Math.floor(self.totalSeconds % 3600 / 60);
+                var s = Math.floor(self.totalSeconds % 3600 % 60);
+
+                self.vrijeme = pad(h) + "h " + pad(m) + "m " + pad(s) + "s ";
+
+                secondsLabel.innerHTML = pad(s) + "s";
+                minutesLabel.innerHTML = pad(m) + "m ";
+                hoursLabel.innerHTML = pad(h) + "h ";
+            }
+
+        }
+
+
+
+        self.updateUI = function updateUI() {
+            if (self.currentQuestion) {
+                self.Title.html(self.currentQuestion.Value);
+                self.BrojPitanjaHeader.html("#" + (self.turnNumber+1));
+                self.BrojPitanjaFooter.text(self.turnNumber+1);
+                self.UkupnoPitanja.text(self.numberOfQuestions);
+
+                self.Btn1.text(self.currentQuestion.Odgovori[0].Value);
+                self.Btn1.val(self.currentQuestion.Odgovori[0].ID);
+
+
+                self.Btn2.text(self.currentQuestion.Odgovori[1].Value);
+                self.Btn2.val(self.currentQuestion.Odgovori[1].ID);
+
+
+                self.Btn3.text(self.currentQuestion.Odgovori[2].Value);
+                self.Btn3.val(self.currentQuestion.Odgovori[2].ID);
+
+
+                self.Btn4.text(self.currentQuestion.Odgovori[3].Value);
+                self.Btn4.val(self.currentQuestion.Odgovori[3].ID);
+            }
+        }
+
+        self.bindButtonEvent = function bindButtonEvent(btn) {
+            btn.on('click', function () {
+                self.btnOdgClick(this);
+            });
+        }
+
+        self.bindAllButtonEvents = function () {
+            self.bindButtonEvent(self.Btn1);
+            self.bindButtonEvent(self.Btn2);
+            self.bindButtonEvent(self.Btn3);
+            self.bindButtonEvent(self.Btn4);
+
+            self.NewGameBtn.on('click', function () {
+                self.btnNewGameClick(this);
+            });
+            self.HighScoresInfoBtn.on('click', function () {
+                self.HighScoresInfoBtnOnClick(this);
+            });
+
+            self.EndGameBtn.on('click', function () {
+                self.EndGameBtnOnClick(this);
+            });
+
+            self.ScoreInfoBtn.on('click', function () {
+                self.ScoreInfoBtnOnClick(this);
+            });
+        }
+
+        self.EndGameBtnOnClick = function (e) {
+            window.location.href = '@Url.Action("Index", "Kviz", new { })';
+        }
+
+        self.ScoreInfoBtnOnClick = function (e) {
+            window.location.href = "@Url.Action("Details", "Rezultati")" + "?ID=" + e.value;
+        }
+
+        self.HighScoresInfoBtnOnClick = function (e) {
+            window.location.href = '@Url.Action("Index", "Rezultati", new { })';
+        }
+
+        self.btnNewGameClick = function (e) {
+            window.location.reload();
+        }
+
+        self.btnOdgClick = function btnOdgClick(e) {
+            var mojOdg = self.currentQuestion.Odgovori.find(odg => odg.ID == e.value);
+            var tocanOdg = self.currentQuestion.Odgovori.find(odg => odg.IsTocanOdgovor == 1);
+
+            if (self.turnNumber <= 0) {
+                self.rezultati.KvizRezultat = {
+                    ID: 0,
+                    NazivKviza: '@ViewBag.kvizData.Kviz.NazivKviza',
+                    KvizID: @ViewBag.kvizData.Kviz.ID,
+                    UserID: @KvizZnanja.Models.Authentication.getLoggedUser().ID,
+                    DatumIVrijeme: formatDate(new Date()),
+                    Score: self.score,
+                    VrijemeTrajanja: self.totalSeconds,
+                    Tocnih: self.tocnih,
+                    Netocnih: self.netocnih,
+                    Postotak: roundToTwo(self.postotak)
+                };
+            }
+
+            var userAnswer = {
+                ID: 0,
+                PitanjeID: self.currentQuestion.ID,
+                UserOdgovorID: mojOdg.ID,
+                TocanOdgovorID: tocanOdg.ID,
+                KvizRezultatID: self.rezultati.KvizRezultat.ID,
+                IsTocan: mojOdg.IsTocanOdgovor
+            };
+            self.rezultati.Odgovori.push(userAnswer);
+            self.updateScoreScreenData(userAnswer);
+            self.takeTurn();
+        }
+
+        self.insertResults = function () {
+            self.rezultati.KvizRezultat.Score = self.score;
+            self.rezultati.KvizRezultat.Tocnih = self.tocnih;
+            self.rezultati.KvizRezultat.Netocnih = self.netocnih;
+            self.rezultati.KvizRezultat.Postotak = self.postotak;
+            $("#totalScore").text(self.score);
+            post("/api/KvizRezultat/Insert", self.rezultati.KvizRezultat,
+                (data) => {
+                    if (data != -1) {
+                        self.ScoreInfoBtn.prop("value", data.ID);
+                        for (var i = 0; i < self.rezultati.Odgovori.length; i++) {
+                            self.rezultati.Odgovori[i].KvizRezultatID = data.ID;
+                        }
+                        post("/api/KvizRezultatOdgovor/Insert", self.rezultati.Odgovori,
+                            (data) => {
+                                if (data != -1) {
+                                    self.rezultati.Odgovori = data;
+                                }
+                            },
+                            (error) => { });
+                    }
+                },
+                (error) => { });
+        }
+
+        self.updateScoreScreenData = function (userAnswer) {
+            if (userAnswer.IsTocan == 1) {
+                self.tocnih++;
+            }
+            else {
+                self.netocnih++;
+            }
+            self.postotak = roundToTwo((self.tocnih / self.numberOfQuestions) * 100);
+            self.score = self.tocnih * 10;
+
+
+            self.Tocnih.text(self.tocnih);
+            self.Netocnih.text(self.netocnih);
+            self.Postotak.text(self.postotak);
+            self.Vrijeme.text(self.vrijeme);
+            self.Score.text(self.score);
+            self.TotalScore.text(self.score);
+        }
+
+        self.showScoreScreen = function () {
+            self.KvizScreen.css("display", "none");
+            self.ScoreScreen.css("display", "block");
+            self.insertResults();
+        }
+
+        self.showKvizScreen = function () {
+            self.ScoreScreen.css("display", "none");
+            self.KvizScreen.css("display", "block");
+        }
+
+        self.startKviz = function startKviz() {
+            $.ajax({
+                url: "/api/Kviz/GetAllData",
+                type: "POST",
+                data: JSON.stringify(@ViewBag.kvizData.Kviz.ID),
+                contentType: "application/json;charset=utf-8",
+                success: function (data) {
+                    if (data) {
+                        self.init(data);
+                    }
+                    else {
+                    }
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+        }
+
+
+        var kviz = new Kviz();
+        kviz.startKviz();
+        });
+
+
+</script>
+
+
+
+

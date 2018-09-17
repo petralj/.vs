@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+<h2>Kreiraj novi kviz</h2>
+
+<form method="post" action="@Url.Action("Create", "Kviz", new { })">
+    <div class="form-group">
+        <label for="NazivKviza">Naziv kviza: </label>
+        <input class="form-control" type="text" name="NazivKviza" id="NazivKviza" value="" />
+        <p style="color: red;">@ViewBag.errorNaziv</p>
+    </div>
+
+
+    <div class="form-group">
+        <label for="Razina">Razina: </label>
+        <select class="form-control" id="Razina" name="Razina">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+    </div>
+
+    <button class="btn btn-success btn-lg" type="submit"><i class="glyphicon glyphicon-floppy-save"></i>&nbsp;&nbsp;Spremi</button>
+    <button type="button" class="btn btn-default btn-lg" onclick="location.href='@Url.Action("Index", "Kviz")'"><i class="glyphicon glyphicon-arrow-left"></i>&nbsp;&nbsp;Nazad</button>
+
+
+</form>
+
+
+

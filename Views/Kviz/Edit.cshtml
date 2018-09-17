@@ -1,0 +1,29 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Izmjeni kviz</h2>
+
+<form method="post" action="@Url.Action("HandleEdit", "Kviz", new { ID=ViewBag.kviz.ID })">
+    <div class="form-group">
+        <label for="NazivKviza">Naziv kviza: </label>
+        <input class="form-control" type="text" name="NazivKviza" id="NazivKviza" value="@ViewBag.kviz.NazivKviza" />
+        <p style="color: red;">@ViewBag.errorNaziv</p>
+    </div>
+
+
+    <div class="form-group">
+        <label for="Razina">Razina: </label>
+        <select class="form-control" id="Razina" name="Razina">
+            <option value="1" @if (ViewBag.kviz.Razina == 1) { @ViewBag.selected;  }>1</option>
+            <option value="2"  @if (ViewBag.kviz.Razina == 2) { @ViewBag.selected;  }>2</option>
+            <option value="3"  @if (ViewBag.kviz.Razina == 3) { @ViewBag.selected;  }>3</option>
+        </select>
+    </div>
+
+    <button class="btn btn-primary" type="submit">Dodaj</button>
+    <button class="btn btn-primary" onclick="location.href='@Url.Action("Index", "Kviz")'">Nazad</button>
+
+</form>
+

@@ -1,0 +1,303 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="KvizZnanjaModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Kviz">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NazivKviza" Type="varchar" MaxLength="255" />
+          <Property Name="Razina" Type="int" />
+        </EntityType>
+        <EntityType Name="KvizPitanje">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KvizID" Type="bigint" />
+          <Property Name="PitanjeID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="KvizRezultat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NazivKviza" Type="varchar" MaxLength="255" />
+          <Property Name="UserID" Type="bigint" />
+          <Property Name="KvizID" Type="bigint" />
+          <Property Name="DatumIVrijeme" Type="datetime" />
+          <Property Name="Score" Type="varchar" MaxLength="255" />
+          <Property Name="VrijemeTrajanja" Type="int" />
+          <Property Name="Tocnih" Type="int" />
+          <Property Name="Netocnih" Type="int" />
+          <Property Name="Postotak" Type="float" />
+        </EntityType>
+        <EntityType Name="KvizRezultatOdgovor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PitanjeID" Type="bigint" />
+          <Property Name="UserOdgovorID" Type="bigint" />
+          <Property Name="TocanOdgovorID" Type="bigint" />
+          <Property Name="KvizRezultatID" Type="bigint" />
+          <Property Name="IsTocan" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="Odgovor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Value" Type="varchar" MaxLength="255" />
+          <Property Name="IsTocanOdgovor" Type="tinyint" />
+        </EntityType>
+        <EntityType Name="OdgovorPitanje">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PitanjeID" Type="bigint" />
+          <Property Name="OdgovorID" Type="bigint" />
+        </EntityType>
+        <EntityType Name="Pitanje">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Value" Type="varchar" MaxLength="255" />
+          <Property Name="Razina" Type="int" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Ime" Type="varchar" MaxLength="255" />
+          <Property Name="Prezime" Type="varchar" MaxLength="255" />
+          <Property Name="Username" Type="varchar" MaxLength="255" />
+          <Property Name="Password" Type="varchar" MaxLength="255" />
+          <Property Name="Email" Type="varchar" MaxLength="255" />
+          <Property Name="Privilegije" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityContainer Name="KvizZnanjaModelStoreContainer">
+          <EntitySet Name="Kviz" EntityType="Self.Kviz" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KvizPitanje" EntityType="Self.KvizPitanje" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KvizRezultat" EntityType="Self.KvizRezultat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KvizRezultatOdgovor" EntityType="Self.KvizRezultatOdgovor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Odgovor" EntityType="Self.Odgovor" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OdgovorPitanje" EntityType="Self.OdgovorPitanje" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pitanje" EntityType="Self.Pitanje" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KvizZnanjaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="KvizZnanjaEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Kvizs" EntityType="KvizZnanjaModel.Kviz" />
+          <EntitySet Name="KvizPitanjes" EntityType="KvizZnanjaModel.KvizPitanje" />
+          <EntitySet Name="Odgovors" EntityType="KvizZnanjaModel.Odgovor" />
+          <EntitySet Name="OdgovorPitanjes" EntityType="KvizZnanjaModel.OdgovorPitanje" />
+          <EntitySet Name="Users" EntityType="KvizZnanjaModel.User" />
+          <EntitySet Name="Pitanjes" EntityType="KvizZnanjaModel.Pitanje" />
+          <EntitySet Name="KvizRezultatOdgovor" EntityType="KvizZnanjaModel.KvizRezultatOdgovor" />
+          <EntitySet Name="KvizRezultat" EntityType="KvizZnanjaModel.KvizRezultat" />
+        </EntityContainer>
+        <EntityType Name="Kviz">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NazivKviza" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Razina" Type="Int32" />
+        </EntityType>
+        <EntityType Name="KvizPitanje">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KvizID" Type="Int64" />
+          <Property Name="PitanjeID" Type="Int64" />
+        </EntityType>
+        <EntityType Name="Odgovor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IsTocanOdgovor" Type="Byte" />
+        </EntityType>
+        <EntityType Name="OdgovorPitanje">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PitanjeID" Type="Int64" />
+          <Property Name="OdgovorID" Type="Int64" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Ime" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Prezime" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Username" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Privilegije" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Pitanje">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Value" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Razina" Type="Int32" />
+        </EntityType>
+        <EntityType Name="KvizRezultatOdgovor">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PitanjeID" Type="Int64" />
+          <Property Name="UserOdgovorID" Type="Int64" />
+          <Property Name="TocanOdgovorID" Type="Int64" />
+          <Property Name="KvizRezultatID" Type="Int64" />
+          <Property Name="IsTocan" Type="Byte" />
+        </EntityType>
+        <EntityType Name="KvizRezultat">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NazivKviza" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="UserID" Type="Int64" />
+          <Property Name="KvizID" Type="Int64" />
+          <Property Name="DatumIVrijeme" Type="DateTime" Precision="3" />
+          <Property Name="Score" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="VrijemeTrajanja" Type="Int32" />
+          <Property Name="Tocnih" Type="Int32" />
+          <Property Name="Netocnih" Type="Int32" />
+          <Property Name="Postotak" Type="Double" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="KvizZnanjaModelStoreContainer" CdmEntityContainer="KvizZnanjaEntities">
+          <EntitySetMapping Name="Kvizs">
+            <EntityTypeMapping TypeName="KvizZnanjaModel.Kviz">
+              <MappingFragment StoreEntitySet="Kviz">
+                <ScalarProperty Name="Razina" ColumnName="Razina" />
+                <ScalarProperty Name="NazivKviza" ColumnName="NazivKviza" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KvizPitanjes">
+            <EntityTypeMapping TypeName="KvizZnanjaModel.KvizPitanje">
+              <MappingFragment StoreEntitySet="KvizPitanje">
+                <ScalarProperty Name="PitanjeID" ColumnName="PitanjeID" />
+                <ScalarProperty Name="KvizID" ColumnName="KvizID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Odgovors">
+            <EntityTypeMapping TypeName="KvizZnanjaModel.Odgovor">
+              <MappingFragment StoreEntitySet="Odgovor">
+                <ScalarProperty Name="IsTocanOdgovor" ColumnName="IsTocanOdgovor" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OdgovorPitanjes">
+            <EntityTypeMapping TypeName="KvizZnanjaModel.OdgovorPitanje">
+              <MappingFragment StoreEntitySet="OdgovorPitanje">
+                <ScalarProperty Name="OdgovorID" ColumnName="OdgovorID" />
+                <ScalarProperty Name="PitanjeID" ColumnName="PitanjeID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="KvizZnanjaModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Privilegije" ColumnName="Privilegije" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+                <ScalarProperty Name="Ime" ColumnName="Ime" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pitanjes">
+            <EntityTypeMapping TypeName="KvizZnanjaModel.Pitanje">
+              <MappingFragment StoreEntitySet="Pitanje">
+                <ScalarProperty Name="Razina" ColumnName="Razina" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KvizRezultatOdgovor">
+            <EntityTypeMapping TypeName="KvizZnanjaModel.KvizRezultatOdgovor">
+              <MappingFragment StoreEntitySet="KvizRezultatOdgovor">
+                <ScalarProperty Name="IsTocan" ColumnName="IsTocan" />
+                <ScalarProperty Name="KvizRezultatID" ColumnName="KvizRezultatID" />
+                <ScalarProperty Name="TocanOdgovorID" ColumnName="TocanOdgovorID" />
+                <ScalarProperty Name="UserOdgovorID" ColumnName="UserOdgovorID" />
+                <ScalarProperty Name="PitanjeID" ColumnName="PitanjeID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KvizRezultat">
+            <EntityTypeMapping TypeName="KvizZnanjaModel.KvizRezultat">
+              <MappingFragment StoreEntitySet="KvizRezultat">
+                <ScalarProperty Name="Postotak" ColumnName="Postotak" />
+                <ScalarProperty Name="Netocnih" ColumnName="Netocnih" />
+                <ScalarProperty Name="Tocnih" ColumnName="Tocnih" />
+                <ScalarProperty Name="VrijemeTrajanja" ColumnName="VrijemeTrajanja" />
+                <ScalarProperty Name="Score" ColumnName="Score" />
+                <ScalarProperty Name="DatumIVrijeme" ColumnName="DatumIVrijeme" />
+                <ScalarProperty Name="KvizID" ColumnName="KvizID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="NazivKviza" ColumnName="NazivKviza" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

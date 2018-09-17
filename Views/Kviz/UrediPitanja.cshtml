@@ -1,0 +1,98 @@
+﻿
+@{
+    ViewBag.Title = "Create";
+}
+<h1>Uredi pitanja kviza</h1>
+<hr />
+
+
+<div class="form-group">
+    <label for="NazivKviza">Naziv kviza: </label>
+    <input class="form-control" type="text" name="NazivKviza" id="NazivKviza" value="@ViewBag.kviz.NazivKviza" />
+    <p style="color: red;">@ViewBag.errorNaziv</p>
+</div>
+
+
+<div class="form-group">
+    <label for="Razina">Razina: </label>
+    <select class="form-control" id="Razina" name="Razina">
+        <option value="1" @if (ViewBag.kviz.Razina == 1) { @ViewBag.selected ; }>1</option>
+        <option value="2" @if (ViewBag.kviz.Razina == 2) { @ViewBag.selected ; }>2</option>
+        <option value="3" @if (ViewBag.kviz.Razina == 3) { @ViewBag.selected ; }>3</option>
+    </select>
+</div>
+<hr />
+
+<h2>Pitanja:</h2>
+
+@if (ViewBag.pitanja.Count > 0)
+{
+    int i = 1;
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (var p in ViewBag.pitanja)
+            {
+            <tr>
+                <td style="width:5%;font-size: 20px;">@i.</td>
+                <td style="width:5%;"><input type="checkbox" name="pitanjaCheckbox" value="@p.ID" @if (ViewBag.selectedPitanja.Contains(p.ID)) { @ViewBag.chk  } /></td>
+                <td style="width:65%;"><text style="font-size: 30px;">@p.Value</text></td>
+            </tr>
+            i++;
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <h3 style="color:blue;">Nema unesenih pitanja u bazi!</h3>
+}
+
+
+<hr />
+<button type="button" class="btn btn-success btn-lg" onclick="spremi()"><i class="glyphicon glyphicon-floppy-save"></i>&nbsp;&nbsp;Spremi</button>
+<button type="button" class="btn btn-default btn-lg" onclick="location.href='@Url.Action("Index", "Kviz", new { }, null)'"><i class="glyphicon glyphicon-arrow-left"></i>&nbsp;&nbsp;Nazad</button>
+
+
+<script type="text/javascript">
+    function getCheckedBoxes() {
+        var checkboxes = document.getElementsByName('pitanjaCheckbox');
+        var checked = [];
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                checked.push(checkboxes[i].value);
+            }
+        }
+        return checked;
+    }
+
+    function spremi() {
+        var data = {
+            NazivKviza: $("#NazivKviza").val(),
+            Razina: $("#Razina").val(),
+            KvizID: @ViewBag.k.ID,
+            PitanjaIDs: getCheckedBoxes()
+        };
+        $.ajax({
+            url: "/api/KvizPitanja/Insert",
+            type: "POST",
+            data: JSON.stringify(data),
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                if (data == 1) {
+                    alert("Izmjene uspješno spremljene!");
+                }
+                else {
+                    alert("Greška prilikom spremanja izmjena!");
+                }
+            }
+        });
+    }
+</script>
